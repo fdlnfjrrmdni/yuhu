@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, FormGroup, Label, Input, Button, Modal, ModalBody } from 'reactstrap'
+import { Form, FormGroup, Label, Input, Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import firebase from '../helper/firebase'
 
@@ -17,19 +17,31 @@ export default class Register extends Component {
 		}
 	}
 
+	componentDidMount(){
+	    firebase.auth().onAuthStateChanged(e=>{
+	      	if(e){
+	        	this.props.history.push('/chat')
+	      	}
+	    })
+	}
+
 	register = async(e) => {
 		e.preventDefault()
 		const {email, password} = this.state
-		try{
+		try {
 			this.setState({processing: true, buttonDisabled: true})
-			await firebase.auth().createUserWithEmailAndPassword(
-				email, password
-			)
+			const result = await firebase.auth().createUserWithEmailAndPassword(
+		        email, password
+		    )
+		    const db = firebase.database()
+		    db.ref(`/users/${result.user.uid}`).set({
+		    	uid: result.user.uid,
+		        email: result.user.email
+		    })
 			this.setState({processing: false, buttonDisabled: false})
-			this.props.history.push('/login')
-		}catch(e){
-			this.setState({modalOpen: true, errorMessage: e.code})
-			this.setState({processing: false, buttonDisabled: false})
+			this.props.history.push('/login', {message: "successfully registered!"})
+		}catch (e) {
+			this.setState({modalOpen: true, errorMessage: e.code, processing: false, buttonDisabled: false})
 		}
 	}
 
@@ -77,8 +89,10 @@ export default class Register extends Component {
 				<Modal isOpen={modalOpen}>
 					<ModalBody>
 						{this.state.errorMessage}<br/>
-						<Button onClick={() => this.setState({modalOpen: false})}>Ok</Button>
 					</ModalBody>
+					<ModalFooter>
+						<Button onClick={() => this.setState({modalOpen: false})}>OK</Button>
+					</ModalFooter>
 				</Modal>
 			</>
 		)

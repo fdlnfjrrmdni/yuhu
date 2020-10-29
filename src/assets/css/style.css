@@ -9,6 +9,10 @@ html, body, #root {
 	min-width: 350px;
 }
 
+.message {
+
+}
+
 /*--------Chat--------*/
 .parent-chat {
 	position: relative;
@@ -40,6 +44,58 @@ html, body, #root {
 .chat-scroll {
 	height: 100%;
 	overflow-y: scroll;
+}
+
+.title {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.title .avatar{
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  background-color: #ddd;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.title span {
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  flex:1;
+}
+
+.title button {
+  border: 0;
+  width: 40px;
+  height: 40px;
+  color: #ff0000;
+  background-color: transparent;
+}
+
+.search-bar{
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+}
+
+.search-bar input{
+  width: 95%;
+  height: 80%;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  outline: none;
 }
 
 .chat-list {
@@ -89,34 +145,60 @@ html, body, #root {
 }
 
 .chat-info {
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	background-color: #ddd;
+  display: flex;
+  align-items: center;
+  background-color: #eee;
+  padding: 10px;
+  border-top-right-radius: 5px;
 }
 
 .chat-info .avatar {
-	width: 50px;
-	height: 50px;
-	border-radius: 25px;
-	background-color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .chat-info .name {
-	padding-left: 20px;
+  padding-left: 20px;
 }
 
-.chat-content {
-	height: calc(100% - 130px);
+.chat-container {
+  height: calc(100% - 120px);
+  overflow: scroll;
+  padding: 10px;
+  background-color: #ccc;
 }
 
 .chat-input {
-	display: flex;
-	height: 60px;
-	padding: 10px;
-	background-color: #fff;
+  height: 60px;
+  background-color: #eee;
+  display: flex;
+  padding: 10px;
 }
 
-.chat-input input {
-	width: 100%;
+.chat-input input{
+  border: 0px;
+  border-radius: 20px;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.chat-input button {
+  border: 1px solid #000;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-input input:focus, .chat-input button:focus{
+  outline: none;
 }
